@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Template from '../../components/complex/Template';
-import { TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { weatherForecast } from '../../../constants/app';
+import WeatherDetail from '../weatherDetail';
+import SearchInput from '../../components/base/SearchInput';
 
 class Home extends Component {
   constructor() {
@@ -8,34 +11,45 @@ class Home extends Component {
 
     this.state = {
       keyword: '',
-      showError: false,
-      errorMsg: '',
+      weatherData: null,
     }
   }
 
-  handleErrors(response) {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response.json();
+  handleChange = e => {
+    this.setState({keyword: e.target.value});
+  };
+
+  handleSearch = () => {
+    fetch(`${weatherForecast.API_URL}/data/2.5/weather?q=${this.state.keyword}&APPID=${weatherForecast.API_KEY}&units=metric`)
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          weatherData: response,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render () {
     const {
       keyword,
-      showError,
-      errorMsg,
+      weatherData,
     } = this.state;
 
     return (
-      <Template title="City">
-        <TextField
+      <Template title="Weather Forecast App">
+        <SearchInput
           id="standard-name"
           label="Search by city"
           value={keyword}
           margin="normal"
           fullWidth
+          onChange={this.handleChange}
+          handleClick={this.handleSearch}
         />
+        {weatherData && <WeatherDetail weatherData={weatherData} />}
       </Template>
     );
   }
