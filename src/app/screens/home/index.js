@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Template from '../../components/complex/Template';
-import { List, TextField } from '@material-ui/core';
-import { weatherForecast } from '../../../constants/app';
+import { TextField } from '@material-ui/core';
 
 class Home extends Component {
   constructor() {
