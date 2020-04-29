@@ -26,7 +26,7 @@ const TabMain = (props) => (
       </div>
       <div className="description">{props.weatherData.weather[0].description}</div>
       <div>
-        <img src={`/icons/${props.weatherData.weather[0].icon}.png`} width="250" className="icon" />
+        <img src={`/icons/${props.weatherData.weather[0].icon}.png`} width="250" className="icon" alt="icon" />
       </div>
       <div className="item"><Moment unix format="dddd, MMMM Do YYYY, HH:mm">{props.weatherData.dt}</Moment></div>
     </div>

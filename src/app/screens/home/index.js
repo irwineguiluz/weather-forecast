@@ -40,7 +40,7 @@ class Home extends Component {
     fetch(`${weatherForecast.API_URL}/data/2.5/weather?q=${this.state.keyword}&APPID=${weatherForecast.API_KEY}&units=metric`)
       .then(response => response.json())
       .then(response => {
-        if (response.cod == 200) {
+        if (response.cod === 200) {
           this.setState({
             weatherData: response,
           });

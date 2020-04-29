@@ -7,7 +7,7 @@ const TabDetails = (props) => (
       <div className="in-out">
         <div className="in-out__item">
           <div className="item__img">
-            <img src="/icons/sunrise.png" width="50" className="icon" />
+            <img src="/icons/sunrise.png" width="50" className="icon" alt="icon" />
           </div>
           <div className="item__info">
             <div className="info__lbl">SUNRISE</div>
@@ -16,7 +16,7 @@ const TabDetails = (props) => (
         </div>
         <div className="in-out__item">
           <div className="item__img">
-            <img src="/icons/sunset.png" width="50" className="icon" />
+            <img src="/icons/sunset.png" width="50" className="icon" alt="icon" />
           </div>
           <div className="item__info">
             <div className="info__lbl">SUNSET</div>
@@ -29,7 +29,7 @@ const TabDetails = (props) => (
       <div className="other-data">
         <div className="other-data__item">
           <div className="item__img">
-            <img src="/icons/sunrise.png" width="50" className="icon" />
+            <img src="/icons/sunrise.png" width="50" className="icon" alt="icon" />
           </div>
           <div className="item__info">
             <div className="info__lbl">Pressure</div>
@@ -38,7 +38,7 @@ const TabDetails = (props) => (
         </div>
         <div className="other-data__item">
           <div className="item__img">
-            <img src="/icons/sunset.png" width="50" className="icon" />
+            <img src="/icons/sunset.png" width="50" className="icon" alt="icon" />
           </div>
           <div className="item__info">
             <div className="info__lbl">Humidity</div>
@@ -47,7 +47,7 @@ const TabDetails = (props) => (
         </div>
         <div className="other-data__item">
           <div className="item__img">
-            <img src="/icons/sunset.png" width="50" className="icon" />
+            <img src="/icons/sunset.png" width="50" className="icon" alt="icon" />
           </div>
           <div className="item__info">
             <div className="info__lbl">Timezone</div>
