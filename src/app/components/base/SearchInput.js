@@ -27,6 +27,10 @@ const CustomizedInputBase = (props) => {
     props.onChange(e);
   }
 
+  const handleKeyDown = (e) => {
+    props.onKeyDown(e);
+  }
+
   return (
     <Paper component="form" className="search-input">
       <InputBase
@@ -34,6 +38,7 @@ const CustomizedInputBase = (props) => {
         placeholder="Search by city"
         inputProps={{ 'aria-label': 'search google maps' }}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
       <Divider className={classes.divider} orientation="vertical" />
       <IconButton type="button" className={classes.iconButton} aria-label="search" onClick={() => props.handleClick()}>

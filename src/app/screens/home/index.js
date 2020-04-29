@@ -34,6 +34,15 @@ class Home extends Component {
     this.setState({keyword: e.target.value});
   };
 
+  handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      if (this.state.keyword !== "") {
+        e.preventDefault();
+        this.handleSearch();
+      }
+    }
+  }
+
   handleSearch = () => {
     this.setState({ spinner: true });
 
@@ -79,6 +88,7 @@ class Home extends Component {
           fullWidth
           onChange={this.handleChange}
           handleClick={this.handleSearch}
+          onKeyDown={this.handleKeyDown}
         />
         {!spinner && weatherData && <WeatherDetail weatherData={weatherData} />}
         {spinner && <CircularProgress className="circular-progress" />}
