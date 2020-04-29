@@ -7,7 +7,14 @@ const TabMain = (props) => (
   <div className="tab-container">
     <div className="tab-main">
       <div className="title">
-        <h2>{props.weatherData.name}, {props.weatherData.sys.country}</h2>
+        <h2 className="city">{props.weatherData.name}, {props.weatherData.sys.country}</h2>
+        <div className="coords">
+          Geo coords: <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://openweathermap.org/weathermap?zoom=8&lat=${props.weatherData.coord.lat}&lon=${props.weatherData.coord.lon}`}
+          >[{props.weatherData.coord.lat}, {props.weatherData.coord.lon}]</a>
+        </div>
       </div>
       <div className="temperature">
         {Math.round(props.weatherData.main.temp)}°C

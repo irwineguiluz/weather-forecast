@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Template from '../../components/complex/Template';
-import { Button } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { weatherForecast } from '../../../constants/app';
 import WeatherDetail from '../weatherDetail';
 import SearchInput from '../../components/base/SearchInput';
+import Template from '../../components/complex/Template';
 
 class Home extends Component {
   constructor() {
@@ -12,7 +14,20 @@ class Home extends Component {
     this.state = {
       keyword: '',
       weatherData: null,
+      spinner: false,
     }
+  }
+
+  notify = () => {
+    toast.warning('Please, try again with another city', {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   handleChange = e => {
@@ -20,21 +35,37 @@ class Home extends Component {
   };
 
   handleSearch = () => {
+    this.setState({ spinner: true });
+
     fetch(`${weatherForecast.API_URL}/data/2.5/weather?q=${this.state.keyword}&APPID=${weatherForecast.API_KEY}&units=metric`)
       .then(response => response.json())
       .then(response => {
-        this.setState({
-          weatherData: response,
-        });
+        if (response.cod == 200) {
+          this.setState({
+            weatherData: response,
+          });
+        } else {
+          this.notify();
+
+          this.setState({
+            weatherData: null,
+          });
+        }
+
+        this.setState({ spinner: false });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({
+          spinner: false,
+          weatherData: null,
+        });
       });
   }
 
   render () {
     const {
       keyword,
+      spinner,
       weatherData,
     } = this.state;
 
@@ -49,7 +80,9 @@ class Home extends Component {
           onChange={this.handleChange}
           handleClick={this.handleSearch}
         />
-        {weatherData && <WeatherDetail weatherData={weatherData} />}
+        {!spinner && weatherData && <WeatherDetail weatherData={weatherData} />}
+        {spinner && <CircularProgress className="circular-progress" />}
+        <ToastContainer />
       </Template>
     );
   }

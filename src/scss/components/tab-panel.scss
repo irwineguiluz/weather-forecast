@@ -15,6 +15,18 @@
 
       .title {
         text-align: center;
+
+        .city {
+          margin-bottom: 0;
+        }
+
+        .coords {
+          font-size: 12px;
+
+          a {
+            color: $white;
+          }
+        }
       }
 
       .temperature {
