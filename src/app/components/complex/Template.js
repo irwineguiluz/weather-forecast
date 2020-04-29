@@ -16,7 +16,7 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 const Template = (props) => {
   return (
     <MuiThemeProvider theme={theme}>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Grid container color="primary" spacing={3}>
           <Grid item xs={12}>
             <CssBaseline />

@@ -1,4 +1,6 @@
 .app-bar {
+  box-shadow: none !important;
+
   .tool-bar {
     display: flex;
     justify-content: space-between;
@@ -18,5 +20,12 @@
         text-decoration: none;
       }
     }
+  }
+}
+
+.tab {
+  &.Mui-selected {
+    background-color: #bebebd;
+    color: $white;
   }
 }

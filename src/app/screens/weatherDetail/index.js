@@ -1,74 +1,73 @@
-import React, { Component } from 'react';
-import Moment from 'react-moment';
-import Template from '../../components/complex/Template';
-import { weatherForecast } from '../../../constants/app';
+import React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import TabMain from './components/tabMain';
+import TabDetails from './components/tabDetails';
 
-class WeatherDetail extends Component {
-  constructor() {
-    super();
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
 
-    this.state = {
-      cityWeatherInfo: {},
-      cityWeatherMain: {},
-      cityWeather: {},
-      cityWeatherSys: {},
-      cityWeatherGeo: {},
-    }
-  }
-
-  componentDidMount() {
-    fetch(`${weatherForecast.API_URL}/data/2.5/weather?q=${this.props.match.params.city}&APPID=${weatherForecast.API_KEY}&units=metric`)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          cityWeatherInfo: response,
-          cityWeatherMain: response.main,
-          cityWeather: response.weather[0],
-          cityWeatherSys: response.sys,
-          cityWeatherGeo: response.coord,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  handleErrors(response) {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response.json();
-  }
-
-  render () {
-    const {
-      cityWeather,
-      cityWeatherInfo,
-      cityWeatherMain,
-      cityWeatherSys,
-      cityWeatherGeo,
-    } = this.state;
-
-    return (
-      <Template title="Detail">
-        <h2>{cityWeatherInfo.name}, {cityWeatherSys.country}</h2>
-        <img class="weather-widget__img" src={`https://openweathermap.org/img/wn/${cityWeather.icon}@2x.png`} alt="icon" width="50" height="50"></img>
-        <p>{cityWeather.description}</p>
-        <p><Moment unix format="dddd, MMMM Do YYYY, HH:mm">{cityWeatherInfo.dt}</Moment></p>
-        <p>Sunrise: <Moment unix format="HH:mm">{cityWeatherSys.sunrise}</Moment></p>
-        <p>Sunset: <Moment unix format="HH:mm">{cityWeatherSys.sunset}</Moment></p>
-        <br />
-        <p>Geo coords: <a target="_blank" rel="noopener noreferrer" href={`https://openweathermap.org/weathermap?zoom=8&lat=${cityWeatherGeo.lat}&lon=${cityWeatherGeo.lon}`}>[{cityWeatherGeo.lat}, {cityWeatherGeo.lon}]</a></p>
-        <p>Temperature: {cityWeatherMain.temp}</p>
-        <p>Feels like: {cityWeatherMain.feels_like}</p>
-        <p>Pressure: {cityWeatherMain.pressure}</p>
-        <p>Humidity: {cityWeatherMain.humidity}</p>
-        <p>Temperature Min.: {cityWeatherMain.temp_min}</p>
-        <p>Temperature Max.: {cityWeatherMain.temp_max}</p>
-        <p>Timezone: {cityWeatherInfo.timezone}</p>
-      </Template>
-    );
-  }
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
 }
 
-export default WeatherDetail;
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const SimpleTabs = (props) => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const {
+    weatherData,
+  } = props;
+
+  return (
+    <div>
+      <AppBar position="static">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab label="Main" {...a11yProps(0)} className="tab" />
+          <Tab label="More details" {...a11yProps(1)} className="tab" />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0} className={`tab-panel bg-${weatherData.weather[0].icon}`}>
+        <TabMain weatherData={weatherData} />
+      </TabPanel>
+      <TabPanel value={value} index={1} className={`tab-panel bg-${weatherData.weather[0].icon}`}>
+        <TabDetails weatherData={weatherData} />
+      </TabPanel>
+    </div>
+  );
+}
+
+export default SimpleTabs;
