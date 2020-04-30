@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and developed by Irwin Eguiluz.
 
-Important: you need an [OpenWeather API_KEY](https://github.com/facebook/create-react-app), DON'T WORRY IT'S FREE!
+Important: you need an [OpenWeather API_KEY](https://openweathermap.org/), DON'T WORRY IT'S FREE!
 
 You must put the key in [project_folder]/src/constants/app.js
 
