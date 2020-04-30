@@ -1,0 +1,19 @@
+$primary: #f3f2f1;
+$secondary: #eee;
+$secondary-light: #f5f5f5;
+$overlay: rgba(0, 0, 0, 0.3);
+$overlay-b: rgba(0, 0, 0, 0.5);
+
+$gray: #707070;
+$white: #ffffff;
+$black: #000000;
+$error: #c30101;
+
+$shadow: #e6e6e6;
+
+:export {
+  primary: $primary;
+  secondary: $secondary;
+  black: $black;
+  white: $white;
+}
